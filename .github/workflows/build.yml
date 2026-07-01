@@ -11,10 +11,18 @@ jobs:
         with:
           node-version: 24
       - name: Install dependencies
+        run: echo "Installing dependencies..."
         run: npm ci
+        
       - name: Run lint
+        run: echo "Running lint..."
         run: npm run lint
+
       - name: Run test
+        run: echo "Running test..."
         run: npm test
+
       - name: Run Build
+        run: echo "Building the code..."
         run: npm run build
+        
