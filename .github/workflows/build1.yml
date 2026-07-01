@@ -1,7 +1,7 @@
 name: Test and Build Workflow
 on: push
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -20,15 +20,45 @@ jobs:
           echo "Running lint..."
           npm run lint
 
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v7
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          npm ci
+
       - name: Run test
         run: |
           echo "Running test..."
           npm test
 
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v7
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          npm ci
+
       - name: Run Build
         run: |
           echo "Building the code..."
           npm run build
+
 
       - name: Deploy code
         run: echo "Deploying..."
